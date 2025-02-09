@@ -1,0 +1,71 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/company_info.css' %}?v=1988">
+{% endblock %}
+
+{% block title %}Информация о компании{% endblock %}
+
+{% block content %}
+    <div class="company-container">
+        <div class="company-header">Информация о компании</div>
+
+        <div class="company-section">
+            <h3>Основная информация</h3>
+            <ul>
+                <li><strong>Название:</strong> {{company.name}}</li>
+                <li><strong>ИНН:</strong> {{company.inn}}</li>
+                <li><strong>КПП:</strong> {{company.kpp}}</li>
+                <li><strong>ОГРН:</strong> {% if company.ogrn %}{{company.ogrn}}{% else %}Не указано{% endif %}</li>
+                <li><strong>БИК:</strong> {% if company.bic %}{{company.bic}}{% else %}Не указано{% endif %}</li>
+                <li><strong>Дата создания:</strong> {{company.created_date}}</li>
+            </ul>
+        </div>
+
+        <div class="company-section">
+            <h3>Лицензии</h3>
+            <ul>
+               {% for license in company.licenses.all %}
+                    <li><strong>{{ license.license_key }}</strong></li>
+                    <li>Срок действия: {{ license.active_from }} - {{ license.active_to }}</li>
+                {% empty %}
+                    <li>Нет лицензий</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="company-section">
+            <h3>Свойства</h3>
+            <ul>
+                {% for property in company.company_properties.all %}
+                    <li><strong>{{ property.property.name }}</strong> - {{ property.value }}</li>
+                {% empty %}
+                    <li>Нет данных</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="company-section">
+            <h3>Департаменты</h3>
+            <ul>
+                {% for department in company.departments.all %}
+                    <li><strong>{{ department.name }}</strong></li>
+                {% empty %}
+                    <li>Нет данных</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="company-section">
+            <h3>Модули</h3>
+            <ul>
+               {% for module in company.company_links.all %}
+                    <li>{{ module.module.name}}</li>
+                {% empty %}
+                    <li>Нет данных</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

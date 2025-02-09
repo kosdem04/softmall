@@ -1,0 +1,38 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/user_group_add.css' %}?v=1988">
+{% endblock %}
+
+{% block title %}Добавление группы пользователей{% endblock %}
+
+{% block content %}
+    <form class="form__fields" method="post">
+        {% csrf_token %}
+
+        <label for="kpp">Введите название группы </label>
+        {{ form.group_name }}
+
+        <label for="ogrn">Введите комментарий (необязательно)</label>
+        {{ form.comment }}
+
+        <label for="bic">Выберите компанию</label>
+        {{ form.company }}
+
+        {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <p class="form__error">{{ error|escape }}</p>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <p class="form__error">{{ error|escape }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <button type="submit">Добавить группу</button>
+    </form>
+{% endblock %}
+
+

@@ -1,0 +1,35 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/add_settings_dict.css' %}?v=1988">
+{% endblock %}
+
+{% block title %}Добавление кода системы{% endblock %}
+
+{% block content %}
+    <form class="form__fields" method="post">
+        {% csrf_token %}
+
+        <label for="code">Введите код системы</label>
+        {{ form.code }}
+
+        <label for="name">Введите название</label>
+        {{ form.name }}
+
+        {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <p class="form__error">{{ error|escape }}</p>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <p class="form__error">{{ error|escape }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <button type="submit">Добавить</button>
+    </form>
+{% endblock %}
+
+

@@ -1,0 +1,35 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}?v=1988">
+{% endblock %}
+
+{% block title %}Авторизация{% endblock %}
+
+{% block content %}
+    <form class="form__fields" method="post">
+        {% csrf_token %}
+        <label for="login__username">Введите юзернейм</label>
+        {{ form.username }}
+
+        <label for="login__pass">Введите пароль</label>
+        {{ form.password }}
+
+        <br>{{ form.turnstile }}
+
+        {% if pass_err %}
+        <p class="form__error">{{ pass_err|escape }}</p>
+        {% endif %}
+
+        {% if form.errors %}
+        {% for error in form.non_field_errors %}
+            <p class="form__error">{{ error|escape }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <button type="submit">Войти</button>
+    </form>
+{% endblock %}
+
+

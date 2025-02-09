@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/send_mail.css' %}?v=1988">
+{% endblock %}
+
+{% block title %}Сделать рассылку{% endblock %}
+
+{% block content %}
+    <form class="form__fields" method="post">
+        {% csrf_token %}
+        <label for="theme">Введите тему письма</label>
+        {{ form.theme }}
+
+        <label for="message">Введите текст письма</label>
+        {{ form.message }}
+
+        <button type="submit">Отправить</button>
+    </form>
+{% endblock %}
+
+

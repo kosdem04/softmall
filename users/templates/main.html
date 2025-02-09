@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}?v=1988">
+    <title>{% block title %}Мой сайт{% endblock %}</title>
+
+    {% block extra_styles %}{% endblock %}
+
+</head>
+<body>
+
+    <header>
+        <a href="{% url 'support' %}" class="login-btn">Поддержка</a>
+        <h1><a href="{% url 'main' %}">СофтМолл</a></h1>
+        <nav>
+            {% if request.user.is_staff %}
+                <a href="{% url 'admin_panel' %}" class="login-btn">Админ-панель</a>
+            {% endif %}
+            {% if not auth %}
+                <a href="{% url 'login' %}" class="login-btn">Войти</a>
+            {% else %}
+                <a href="{% url 'profile' %}" class="login-btn">Личный кабинет</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        <div class="company-info">
+            <h2>{{ welcome_message.value }}</h2>
+            <p>«SoftMall» – системный интегратор, центр компетенций информационных технологий и информационной безопасности. Компания имеет представительства, расположенные от Москвы до Дальнего Востока.</p>
+            <p>Предоставляет полный перечень услуг в области ИТ и ИБ: от построения и модернизации ИТ-инфраструктуры и систем управления информационной безопасностью до консалтинговых услуг в области ИТ и ИБ.</p>
+            <p>SoftMall имеет высокие партнерские статусы ведущих мировых и отечественных вендоров. В компании работает большой штат высококвалифицированных инженеров и специалистов в области ИТ и кибербезопасности, многолетний опыт которых позволяет индивидуально и комплексно подходить к задачам каждого клиента, выбирать оптимальные решения и технологии.</p>
+        </div>
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 СофтМолл. Все права защищены.</p>
+    </footer>
+
+</body>
+</html>

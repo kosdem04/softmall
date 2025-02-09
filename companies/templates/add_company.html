@@ -1,0 +1,44 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/add_company.css' %}?v=1988">
+{% endblock %}
+
+{% block title %}Добавление компании{% endblock %}
+
+{% block content %}
+    <form class="form__fields" method="post">
+        {% csrf_token %}
+
+        <label for="name">Введите название компании</label>
+        {{ form.name }}
+
+        <label for="inn">Введите ИНН</label>
+        {{ form.inn }}
+
+        <label for="kpp">Введите КПП </label>
+        {{ form.kpp }}
+
+        <label for="ogrn">Введите ОГРН (необязательно)</label>
+        {{ form.ogrn }}
+
+        <label for="bic">Введите БИК (необязательно)</label>
+        {{ form.bic }}
+
+        {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <p class="form__error">{{ error|escape }}</p>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <p class="form__error">{{ error|escape }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <button type="submit">Добавить компанию</button>
+    </form>
+{% endblock %}
+
+

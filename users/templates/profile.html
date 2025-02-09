@@ -1,0 +1,88 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}?v=1988">
+{% endblock %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+{% block content %}
+    <div class="profile-container">
+        <div class="profile-header">Личный кабинет</div>
+
+        <div class="profile-section">
+            <h3>Личная информация</h3>
+            <ul>
+                <li><strong>Юзернейм:</strong> {{ user.username }}</li>
+                <li><strong>Имя:</strong> {% if user.firstname %}{{ user.firstname }}{% else %}Не указано{% endif %}</li>
+                <li><strong>Фамилия:</strong> {% if user.lastname %}{{ user.lastname }}{% else %}Не указано{% endif %}</li>
+                <li><strong>Отчество:</strong> {% if user.patronymic %}{{ user.patronymic }}{% else %}Не указано{% endif %}</li>
+            </ul>
+            <a href="{% url 'change_password' %}" class="logout-button">Сменить пароль</a>
+        </div>
+
+        <div class="profile-section">
+            <h3>Дополнительная информация</h3>
+            <ul>
+                <li><strong>Компания:</strong> {% if user.company.name %}{{ user.company.name }}
+                    <a href="{% url 'company_info' user.company.id %}">подробнее</a>{% else %}Нет данных{% endif %}</li>
+                <li><strong>Группа:</strong> {% if user.group.group_name %}{{ user.group.group_name }}{% else %}Нет данных{% endif %}</li>
+                <li><strong>Часовой пояс:</strong> {% if user.timezone.timezone_name %} +{{ user.timezone.timezone }} {{ user.timezone.timezone_name }}
+                    {% else %}Нет данных{% endif %}</li>
+            </ul>
+        </div>
+
+        <div class="profile-section">
+            <h3>Роли</h3>
+            <ul>
+                {% for role in user.user_roles.all %}
+                    <li><strong>{{ role.role }}</strong></li>
+                    <li>Срок действия: {{ role.active_from }} - {% if role.active_to %}{{ role.active_to }}{% else %}Без ограничения{% endif %}</li>
+                {% empty %}
+                    <li>Нет ролей</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="profile-section">
+            <h3>Свойства пользователя</h3>
+            <ul>
+                {% for property in user.properties.all %}
+                    <li><strong>{{ property.property.name }}:</strong> {{ property.value }}</li>
+                {% empty %}
+                    <li>Нет свойств</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="profile-section">
+            <h3>Функции пользователя</h3>
+            <ul>
+               {% for user_roles in user.user_roles.all %}
+                    {% for function in user_roles.role.role_functions.all %}
+                        <li>{{ function.function}}</li>
+                    {% empty %}
+                        <li>Нет доступных функций</li>
+                    {% endfor %}
+                {% empty %}
+                    <li>Нет доступных функций</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+
+        <div class="profile-section">
+            <h3>Доступные отчёты</h3>
+            <ul>
+               {% for report in user.report_links.all %}
+                    <li>{{ report.report.name}}</li>
+                {% empty %}
+                    <li>Нет доступных отчётов</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <a href="{% url 'logout' %}" class="logout-button">Выйти из аккаунта</a>
+    </div>
+{% endblock %}

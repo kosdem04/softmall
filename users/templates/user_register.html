@@ -1,0 +1,56 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/user_register.css' %}?v=1988">
+{% endblock %}
+
+{% block title %}Регистрация пользователя{% endblock %}
+
+{% block content %}
+    <form class="form__fields" method="post">
+        {% csrf_token %}
+
+        <label for="username">Введите юзернейм</label>
+        {{ form.username }}
+
+        <label for="first_name">Введите имя</label>
+        {{ form.firstname }}
+
+        <label for="last_name">Введите фамилию</label>
+        {{ form.lastname }}
+
+        <label for="middle_name">Введите отчество (необязательно)</label>
+        {{ form.patronymic }}
+
+        <label for="company">Выберите компанию</label>
+        {{ form.company }}
+
+        <label for="group">Выберите группу</label>
+        {{ form.group }}
+
+        <label for="timezone">Выберите временную зону</label>
+        {{ form.timezone }}
+
+        <label for="password1">Введите пароль</label>
+        {{ form.password1 }}
+
+        <label for="password2">Подтвердите пароль</label>
+        {{ form.password2 }}
+
+        {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <p class="form__error">{{ error|escape }}</p>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <p class="form__error">{{ error|escape }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <button type="submit">Зарегистрировать пользователя</button>
+    </form>
+{% endblock %}
+
+

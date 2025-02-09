@@ -1,0 +1,25 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/admin_panel.css' %}?v=1988">
+{% endblock %}
+
+{% block title %}Админ-панель{% endblock %}
+
+{% block content %}
+    <div class="admin__panel">
+        <button onclick="location.href='{% url 'user_reg' %}'">Добавить пользователя</button>
+        <button onclick="location.href='{% url 'add_company' %}'">Добавить компанию</button>
+        <button onclick="location.href='{% url 'add_group' %}'">Добавить группу пользователей</button>
+        <button onclick="location.href='{% url 'add_role' %}'">Добавить роль</button>
+        <button onclick="location.href='{% url 'add_user_role' %}'">Добавить роль пользователю</button>
+        <button onclick="location.href='{% url 'add_function' %}'">Добавить функцию</button>
+        <button onclick="location.href='{% url 'add_role_function' %}'">Добавить функцию к роли</button>
+        <button onclick="location.href='{% url 'add_setting_dict' %}'">Добавить код системы</button>
+        <button onclick="location.href='{% url 'add_setting' %}'">Добавить общее свойство</button>
+        <button onclick="location.href='{% url 'show_settings' %}'">Все настройки системы</button>
+        <button onclick="location.href='{% url 'send_mail' %}'">Сделать рассылку</button>
+        <button class="home-button" onclick="location.href='/admin'">Доступ ко всем таблицам</button>
+    </div>
+{% endblock %}

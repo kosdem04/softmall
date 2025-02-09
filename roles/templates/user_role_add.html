@@ -1,0 +1,42 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/user_role_add.css' %}?v=1988">
+{% endblock %}
+
+{% block title %}Добавление роли пользователю{% endblock %}
+
+{% block content %}
+    <form class="form__fields" method="post">
+        {% csrf_token %}
+
+        <label for="user">Выберите пользователя </label>
+        {{ form.user }}
+
+        <label for="role">Выберите роль</label>
+        {{ form.role }}
+
+        <label for="active_from">Начало действия</label>
+        {{ form.active_from }}
+
+        <label for="active_to">Конец действия (необязательно)</label>
+        {{ form.active_to }}
+
+
+        {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <p class="form__error">{{ error|escape }}</p>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <p class="form__error">{{ error|escape }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <button type="submit">Добавить роль пользователю</button>
+    </form>
+{% endblock %}
+
+

@@ -1,0 +1,89 @@
+.form__fields {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form__fields label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form__fields input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form__fields button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.form__fields button:hover {
+    background-color: #0056b3;
+}
+
+.form__error {
+    color: #f44336;
+    font-size: 14px;
+    margin-top: -10px;
+}
+
+.form__switch {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.form__switch a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.form__switch a:hover {
+    text-decoration: underline;
+}
+
+.delete-btn {
+    display: inline-block;
+    background-color: #dc3545;
+    color: #fff;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+.delete-btn:active {
+    background-color: #a71d2a;
+    transform: scale(0.98);
+}
